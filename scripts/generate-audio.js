@@ -19,12 +19,12 @@ const PHRASES = {
     'यदि मैंने यह खाया तो मेरी जान जा सकती है। यह आपातकाल है।',
     'मुझे एलर्जी की प्रतिक्रिया हो रही है। एम्बुलेंस बुलाएँ।',
   ],
-  thai: [
-    'อาหารจานนี้มีถั่วลิสงไหม',
-    'ฉันแพ้ถั่วลิสงรุนแรง โปรดยืนยันกับเชฟ',
-    'ทำโดยไม่ใส่ถั่วและน้ำพริกถั่วได้ไหม',
-    'ฉันอาจตายได้ถ้ากินถั่วลิสง นี่คือเหตุฉุกเฉินทางการแพทย์',
-    'ฉันกำลังแพ้อาหารรุนแรง โปรดเรียกรถพยาบาล',
+  french: [
+    'Est-ce que ce plat contient des cacahuètes ou des fruits à coque ?',
+    "J'ai une allergie grave aux cacahuètes. Veuillez confirmer avec le chef.",
+    'Peut-on préparer ce plat sans aucun fruit à coque et sans traces ?',
+    "Je pourrais mourir si je mange des cacahuètes. C'est une urgence médicale.",
+    "Je fais une réaction allergique. Appelez le SAMU, s'il vous plaît.",
   ],
   japanese: [
     'この料理に小麦や甲殻類は入っていますか。',
@@ -33,12 +33,12 @@ const PHRASES = {
     '小麦で重症になる可能性があります。これは医療上の緊急事態です。',
     'アレルギー反応が出ています。救急車を呼んでください。',
   ],
-  kannada: [
-    'ಈ ಖಾದ್ಯದಲ್ಲಿ ಮೊಟ್ಟೆ ಅಥವಾ ಮೀನು ಇದೆಯೇ?',
-    'ನನಗೆ ಸಿಕೆಡಿ ಮತ್ತು ಹಿಸ್ಟಮಿನ್ ಅಸಹಿಷ್ಣುತೆ ಇದೆ. ಪದಾರ್ಥಗಳನ್ನು ದೃಢೀಕರಿಸಿ.',
-    'ಹುದುಗಿಸಿದ ಬೆಲ್ಲ ಮತ್ತು ಹೆಚ್ಚು ಪೊಟಾಸಿಯಂ ಪದಾರ್ಥಗಳಿಲ್ಲದೆ ಇದನ್ನು ಮಾಡಬಹುದೇ?',
-    'ನನ್ನ ಆರೋಗ್ಯ ಸ್ಥಿತಿ ಗಂಭೀರವಾಗಬಹುದು. ಇದು ವೈದ್ಯಕೀಯ ಕಾಳಜಿ.',
-    'ನನಗೆ ಅಸ್ವಸ್ಥವಾಗಿದೆ. ದಯವಿಟ್ಟು ಆಂಬುಲೆನ್ಸ್ ಕರೆಯಿರಿ.',
+  spanish: [
+    '¿Este plato contiene huevo o pescado?',
+    'Tengo enfermedad renal e intolerancia a la histamina. Por favor confirme los ingredientes.',
+    '¿Se puede preparar sin ingredientes fermentados o curados y sin alimentos altos en potasio?',
+    'Mi condición podría empeorar gravemente. Es una emergencia médica.',
+    'Me siento muy mal. Por favor llame a una ambulancia.',
   ],
 };
 

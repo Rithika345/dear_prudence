@@ -194,8 +194,8 @@ function extractDishEntities(transcript, kbDishes, threshold = 0.55) {
 const DEMO_TRANSCRIPTS = {
   north_indian: 'palak paneer, butter chicken, idli, chole bhature, rajma, dosa, malai kofta, dal makhani, naan',
   japanese: 'miso soup, edamame, tempura, ramen, sashimi, onigiri, yakitori, okonomiyaki',
-  thai: 'pad thai, massaman curry, satay, green curry, tom yum soup, larb, mango sticky rice, panang curry',
-  south_indian: 'idli, dosa, sambar, rasam, upma, curd rice',
+  french: 'macaron, croissant, galette des rois, croque monsieur, steak frites, crepe suzette, pain au chocolat, salade aux noix, soupe a l oignon',
+  spanish: 'tortilla espanola, jamon iberico, patatas bravas, gazpacho, croquetas, boquerones, manchego, churros, pa amb tomaquet',
 };
 
 // Export to window
