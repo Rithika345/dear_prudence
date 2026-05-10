@@ -245,14 +245,20 @@ function KnowledgeGraph({ allergens, profileName }) {
         {innerR > 0 && <circle cx={cx} cy={cy} r={innerR} fill="none" stroke="var(--rule)" strokeWidth={0.5} strokeDasharray="4 4" />}
         <circle cx={cx} cy={cy} r={outerR} fill="none" stroke="var(--rule)" strokeWidth={0.5} strokeDasharray="4 4" />
         {edges.map((e, i) => { const a=positions.get(e.from), b=positions.get(e.to); if(!a||!b) return null; const h=e.prob>=0.5; return (
-          <g key={'e'+i}><line x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="var(--ink)" strokeWidth={h?2.5:1} strokeDasharray={h?'':'6 4'} className={h?'eh':''} opacity={0.15+e.prob*0.6} />
-          <rect x={(a.x+b.x)/2-18} y={(a.y+b.y)/2-10} width={36} height={18} rx={3} fill="var(--paper-deep)" stroke="var(--rule)" strokeWidth={0.5} />
-          <text x={(a.x+b.x)/2} y={(a.y+b.y)/2+3} fill="var(--ink)" fontSize="11" fontFamily="var(--sans)" fontWeight="500" textAnchor="middle">{Math.round(e.prob*100)}%</text></g>
+          <g key={'e'+i}>
+            <title>{`${fmt(e.from)} → ${fmt(e.to)}  ·  cross-reactivity ${Math.round(e.prob*100)}%  ·  edge weight = P(reaction | ${fmt(e.from)} allergy)`}</title>
+            <line x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="var(--ink)" strokeWidth={h?2.5:1} strokeDasharray={h?'':'6 4'} className={h?'eh':''} opacity={0.15+e.prob*0.6} />
+            <rect x={(a.x+b.x)/2-18} y={(a.y+b.y)/2-10} width={36} height={18} rx={3} fill="var(--paper-deep)" stroke="var(--rule)" strokeWidth={0.5} />
+            <text x={(a.x+b.x)/2} y={(a.y+b.y)/2+3} fill="var(--ink)" fontSize="11" fontFamily="var(--sans)" fontWeight="500" textAnchor="middle">{Math.round(e.prob*100)}%</text>
+          </g>
         ); })}
         {nodes.map(n => { const p=positions.get(n.id); if(!p) return null; const isU=n.kind==='user'; const r=isU?28:18; return (
-          <g key={n.id}>{isU && <circle cx={p.x} cy={p.y} r={r+6} fill="none" stroke="var(--ink)" strokeWidth={0.5} opacity={0.15} />}
-          <circle cx={p.x} cy={p.y} r={r} fill={isU?'var(--ink)':'var(--paper)'} stroke={isU?'var(--ink)':'var(--ink-soft)'} strokeWidth={isU?0:1.5} />
-          <text x={p.x} y={p.y+4} fill={isU?'var(--paper)':'var(--ink)'} fontSize={isU?11:10} fontFamily="var(--sans)" fontWeight={isU?600:400} textAnchor="middle">{fmt(n.id)}</text></g>
+          <g key={n.id}>
+            <title>{`${fmt(n.id)} · ${isU ? 'declared allergen (BFS root, P = 1.0)' : 'cross-reactive — reached via graph traversal'}`}</title>
+            {isU && <circle cx={p.x} cy={p.y} r={r+6} fill="none" stroke="var(--ink)" strokeWidth={0.5} opacity={0.15} />}
+            <circle cx={p.x} cy={p.y} r={r} fill={isU?'var(--ink)':'var(--paper)'} stroke={isU?'var(--ink)':'var(--ink-soft)'} strokeWidth={isU?0:1.5} />
+            <text x={p.x} y={p.y+4} fill={isU?'var(--paper)':'var(--ink)'} fontSize={isU?11:10} fontFamily="var(--sans)" fontWeight={isU?600:400} textAnchor="middle">{fmt(n.id)}</text>
+          </g>
         ); })}
         <text x={16} y={24} fill="var(--ink-mute)" fontSize="10" fontFamily="var(--sans)" fontWeight="500" letterSpacing="0.12em">BFS CROSS-REACTIVITY TRAVERSAL</text>
         <text x={W-16} y={24} fill="var(--ink-mute)" fontSize="10" fontFamily="var(--sans)" textAnchor="end">{nodes.length} nodes · {edges.length} edges</text>
@@ -271,12 +277,17 @@ function FoodScreen({ profile, kb, liveAllergens, liveSeverity, liveConditions }
   const [listening, setListening] = useState(false);
   const [text, setText] = useState('');
   const [kitchenType, setKitchenType] = useState('casual');
+  const [voiceSource, setVoiceSource] = useState('browser'); // 'browser' | 'cactus'
+  const [cactusStatus, setCactusStatus] = useState(null); // null | 'starting' | 'listening' | 'unavailable'
   const [liveResults, setLiveResults] = useState([]);
   const [claudeLoading, setClaudeLoading] = useState(null);
+  const [streamingText, setStreamingText] = useState('');
+  const [expandedIdx, setExpandedIdx] = useState(null);
   const [transcript, setTranscript] = useState('');
   const [menuImage, setMenuImage] = useState(null);
   const [scanningMenu, setScanningMenu] = useState(false);
   const recognitionRef = useRef(null);
+  const cactusPollRef = useRef(null);
   const fileRef = useRef(null);
   const liveProfile = { allergens: liveAllergens, severity: liveSeverity, conditions: liveConditions };
   const staticDishes = window.ASSESSMENTS[profile.id] || window.ASSESSMENTS.ringo;
@@ -284,33 +295,79 @@ function FoodScreen({ profile, kb, liveAllergens, liveSeverity, liveConditions }
   const inferredCount = allDishes.filter(d => d.inferred).length;
   const kbDishes = useMemo(() => { if (!kb) return []; return kb.dishes?.[profile.cuisine] || Object.values(kb.dishes || {}).flat(); }, [kb, profile.cuisine]);
 
+  const ingestTranscript = useCallback((chunk) => {
+    if (!chunk || kbDishes.length === 0) return;
+    setTranscript(p => (p + ' ' + chunk).trim());
+    const ents = window.extractDishEntities(chunk, kbDishes);
+    if (ents.length === 0) return;
+    const res = window.assessMenu(ents.map(e => e.matchedDish.dish), kbDishes, liveProfile, kitchenType);
+    setLiveResults(p => { const ex = new Set(p.map(r => r.dish)); return [...p, ...res.filter(r => !ex.has(r.dish))]; });
+  }, [kbDishes, liveProfile, kitchenType]);
+
   const handleManualLookup = useCallback(async () => {
     if (!text.trim()) return;
+    const query = text.trim();
+    setText('');
     if (kbDishes.length > 0) {
-      const results = window.assessMenu([text.trim()], kbDishes, liveProfile, kitchenType);
+      const results = window.assessMenu([query], kbDishes, liveProfile, kitchenType);
       if (results.length > 0 && results[0].requiresCloudFallback) {
-        setClaudeLoading(text.trim());
+        setClaudeLoading(query);
+        setStreamingText('');
+        let accumulated = '';
         try {
-          const resp = await fetch('/api/claude', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ systemPrompt: 'You are a food allergen analyst. Given a dish name and user allergens, reason about likely ingredients. Respond ONLY in JSON: {"dish":"...","risk":"avoid|ask|low","why":"...","detail":"..."}', userMessage: 'Dish: "' + text.trim() + '" | Allergens: ' + liveAllergens.join(', ') + ' | Conditions: ' + (liveConditions.join(', ') || 'none') + ' | Severity: ' + liveSeverity }) });
-          const data = await resp.json();
-          try { const p = JSON.parse(data.content); results[0] = { ...results[0], dish: p.dish || text.trim(), riskLevel: p.risk, riskLabel: (p.risk||'ask').toUpperCase(), why: p.why, inferred: true, requiresCloudFallback: false }; } catch {}
-        } catch (e) { console.error('Claude:', e); }
+          const resp = await fetch('/api/claude/stream', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ systemPrompt: 'You are a food allergen analyst. Given a dish name and user allergens, reason about likely ingredients. Respond ONLY in JSON: {"dish":"...","risk":"avoid|ask|low","why":"...","detail":"..."}', userMessage: 'Dish: "' + query + '" | Allergens: ' + liveAllergens.join(', ') + ' | Conditions: ' + (liveConditions.join(', ') || 'none') + ' | Severity: ' + liveSeverity }) });
+          if (!resp.ok || !resp.body) throw new Error('stream unavailable');
+          const reader = resp.body.getReader(); const dec = new TextDecoder(); let buf = '';
+          while (true) {
+            const { done, value } = await reader.read(); if (done) break;
+            buf += dec.decode(value, { stream: true });
+            const lines = buf.split('\n'); buf = lines.pop();
+            for (const line of lines) {
+              if (!line.startsWith('data:')) continue;
+              const payload = line.slice(5).trim(); if (!payload) continue;
+              try { const ev = JSON.parse(payload); if (ev.type === 'content_block_delta' && ev.delta?.text) { accumulated += ev.delta.text; setStreamingText(accumulated); } } catch {}
+            }
+          }
+          try { const m = accumulated.match(/\{[\s\S]*\}/); const p = m ? JSON.parse(m[0]) : null; if (p) results[0] = { ...results[0], dish: p.dish || query, riskLevel: p.risk, riskLabel: (p.risk||'ask').toUpperCase(), why: p.why, hiddenRisks: p.detail || results[0].hiddenRisks, inferred: true, requiresCloudFallback: false }; } catch {}
+        } catch (e) { console.error('Claude stream:', e); }
         setClaudeLoading(null);
+        setTimeout(() => setStreamingText(''), 1200);
       }
       setLiveResults(prev => [...prev, ...results]);
     }
-    setText('');
   }, [text, kbDishes, liveProfile, kitchenType, liveAllergens, liveSeverity, liveConditions]);
 
-  const toggleListening = useCallback(() => {
-    if (listening) { recognitionRef.current?.stop(); setListening(false); return; }
+  const stopCactus = useCallback(() => {
+    if (cactusPollRef.current) { clearInterval(cactusPollRef.current); cactusPollRef.current = null; }
+    fetch('/api/cactus/transcribe/stop', { method: 'POST' }).catch(() => {});
+    setCactusStatus(null);
+  }, []);
+
+  const toggleListening = useCallback(async () => {
+    if (listening) {
+      if (voiceSource === 'cactus') stopCactus();
+      else recognitionRef.current?.stop();
+      setListening(false); return;
+    }
+    if (voiceSource === 'cactus') {
+      setCactusStatus('starting');
+      try {
+        const r = await fetch('/api/cactus/transcribe/start', { method: 'POST' });
+        if (!r.ok) throw new Error('cactus unavailable');
+        setCactusStatus('listening'); setListening(true);
+        cactusPollRef.current = setInterval(async () => {
+          try { const pr = await fetch('/api/cactus/transcribe/poll'); const pd = await pr.json(); if (pd.transcript) ingestTranscript(pd.transcript); } catch {}
+        }, 1200);
+      } catch { setCactusStatus('unavailable'); setTimeout(() => setCactusStatus(null), 2500); }
+      return;
+    }
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SR) { alert('Use Chrome for voice.'); return; }
+    if (!SR) { alert('Use Chrome for voice — or switch to On-device.'); return; }
     const rec = new SR(); rec.continuous = true; rec.interimResults = true; rec.lang = 'en-US';
-    rec.onresult = (e) => { let f = ''; for (let i = e.resultIndex; i < e.results.length; i++) if (e.results[i].isFinal) f += e.results[i][0].transcript;
-      if (f && kbDishes.length > 0) { setTranscript(p => p + ' ' + f); const ents = window.extractDishEntities(f, kbDishes); if (ents.length > 0) { const res = window.assessMenu(ents.map(e => e.matchedDish.dish), kbDishes, liveProfile, kitchenType); setLiveResults(p => { const ex = new Set(p.map(r => r.dish)); return [...p, ...res.filter(r => !ex.has(r.dish))]; }); } } };
-    rec.onend = () => { if (listening) try { rec.start(); } catch {} }; rec.start(); recognitionRef.current = rec; setListening(true);
-  }, [listening, kbDishes, liveProfile, kitchenType]);
+    rec.onresult = (e) => { let f = ''; for (let i = e.resultIndex; i < e.results.length; i++) if (e.results[i].isFinal) f += e.results[i][0].transcript; if (f) ingestTranscript(f); };
+    rec.onend = () => { if (listening) try { rec.start(); } catch {} };
+    rec.start(); recognitionRef.current = rec; setListening(true);
+  }, [listening, voiceSource, ingestTranscript, stopCactus]);
 
   const playDemo = useCallback(() => {
     if (kbDishes.length === 0) return;
@@ -345,15 +402,22 @@ function FoodScreen({ profile, kb, liveAllergens, liveSeverity, liveConditions }
     reader.readAsDataURL(file);
   }, [kbDishes, liveProfile, kitchenType]);
 
-  useEffect(() => { setLiveResults([]); setTranscript(''); setMenuImage(null); }, [profile.id]);
+  useEffect(() => { setLiveResults([]); setTranscript(''); setMenuImage(null); setExpandedIdx(null); setStreamingText(''); }, [profile.id]);
+  useEffect(() => () => { if (cactusPollRef.current) clearInterval(cactusPollRef.current); }, []);
 
   return (
     <div className="fade-in">
       <PageTitle numeral="iii" eyebrow="The food" sub="Speak a dish, type it, or photograph a menu. Risk scored against your live allergen profile and the knowledge graph.">Assess</PageTitle>
-      <section className="slide-in-left" style={{ marginBottom: 28 }}>
+      <section className="slide-in-left" style={{ marginBottom: 28, display: 'flex', flexWrap: 'wrap', gap: 32, alignItems: 'center' }}>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
           <span className="eyebrow" style={{ marginRight: 8 }}>Kitchen</span>
           {[['street_food', 'Street ×1.5'], ['casual', 'Casual ×1.0'], ['fine_dining', 'Fine ×0.7']].map(([k, l]) => <button key={k} onClick={() => { setKitchenType(k); setLiveResults([]); }} className={'chip ' + (kitchenType === k ? 'on' : '')} style={{ fontSize: 11 }}>{l}</button>)}
+        </div>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <span className="eyebrow" style={{ marginRight: 8 }}>Voice</span>
+          {[['browser', 'Browser STT'], ['cactus', 'On-device · Cactus']].map(([k, l]) => <button key={k} onClick={() => { if (!listening) setVoiceSource(k); }} className={'chip ' + (voiceSource === k ? 'on' : '')} style={{ fontSize: 11, opacity: listening ? 0.5 : 1 }}>{l}</button>)}
+          {cactusStatus === 'unavailable' && <span style={{ fontSize: 11, color: 'var(--emergency, var(--ink))', fontStyle: 'italic' }}>cactus offline</span>}
+          {cactusStatus === 'starting' && <span style={{ fontSize: 11, color: 'var(--ink-mute)', fontStyle: 'italic' }}>spawning…</span>}
         </div>
       </section>
       <section style={{ display: 'flex', gap: 32, alignItems: 'flex-start', padding: '24px 0 36px' }}>
@@ -371,6 +435,12 @@ function FoodScreen({ profile, kb, liveAllergens, liveSeverity, liveConditions }
         </div>
       </section>
       {transcript && <p className="fade-in" style={{ marginBottom: 16, fontSize: 13, color: 'var(--ink-mute)', fontStyle: 'italic', textAlign: 'center', maxWidth: 480, margin: '0 auto 16px' }}>"{transcript.trim()}"</p>}
+      {streamingText && (
+        <div className="fade-in" style={{ marginBottom: 16, padding: '16px 20px', background: 'var(--accent-tint)', border: '1px solid var(--rule)', maxWidth: 640, marginLeft: 'auto', marginRight: 'auto' }}>
+          <div className="eyebrow" style={{ marginBottom: 8, color: 'var(--accent)' }}>Claude · streaming inference</div>
+          <pre style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 13, color: 'var(--ink-soft)', whiteSpace: 'pre-wrap', wordBreak: 'break-word', margin: 0, lineHeight: 1.55 }}>{streamingText}<span style={{ background: 'var(--ink)', display: 'inline-block', width: 7, height: 12, marginLeft: 2, animation: 'blink 1s steps(2) infinite' }} /></pre>
+        </div>
+      )}
       <section style={{ marginBottom: 48 }}>
         <div className="rule"></div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 18, padding: '4px 0' }}>
@@ -381,16 +451,40 @@ function FoodScreen({ profile, kb, liveAllergens, liveSeverity, liveConditions }
       </section>
       <section className="stagger" style={{ marginBottom: 56 }}>
         <Eyebrow num="iii.a">Assessment — {allDishes.length} dishes</Eyebrow>
-        {allDishes.map((d, i) => { const emoji = window.FOOD_EMOJI?.[d.dish] || '🍽️'; return (
-          <div key={d.dish+i} className="fade-up" style={{ animationDelay: i*60+'ms', display: 'grid', gridTemplateColumns: '44px 1fr 100px', gap: 16, padding: '18px 16px', background: (d.risk||d.riskLevel) === 'avoid' || (d.risk||d.riskLevel) === 'emergency' ? 'var(--accent-tint)' : 'transparent', borderBottom: '1px solid var(--rule)', alignItems: 'center' }}>
+        {allDishes.map((d, i) => { const emoji = window.FOOD_EMOJI?.[d.dish] || '🍽️'; const isLive = d.triggers !== undefined; const open = expandedIdx === i; const conf = typeof d.matchConfidence === 'number' ? Math.round(d.matchConfidence * 100) : null; const rs = typeof d.maxRiskScore === 'number' ? d.maxRiskScore : null; return (
+          <div key={d.dish+i}>
+          <div className="fade-up" onClick={() => setExpandedIdx(open ? null : i)} style={{ animationDelay: i*60+'ms', display: 'grid', gridTemplateColumns: '44px 1fr 120px', gap: 16, padding: '18px 16px', background: (d.risk||d.riskLevel) === 'avoid' || (d.risk||d.riskLevel) === 'emergency' ? 'var(--accent-tint)' : 'transparent', borderBottom: open ? 'none' : '1px solid var(--rule)', alignItems: 'center', cursor: 'pointer', transition: 'background 0.15s' }}>
             <span style={{ fontSize: 28 }}>{emoji}</span>
             <div>
-              <div className="serif" style={{ fontSize: 18, fontWeight: 400, marginBottom: 2 }}>{d.dish}{d.inferred && <sup style={{ fontSize: 11, color: 'var(--ink-mute)', marginLeft: 3 }}>Claude*</sup>}</div>
+              <div className="serif" style={{ fontSize: 18, fontWeight: 400, marginBottom: 2 }}>{d.dish}{d.inferred && <sup style={{ fontSize: 11, color: 'var(--ink-mute)', marginLeft: 3 }}>Claude*</sup>}<span style={{ fontSize: 10, color: 'var(--ink-faint)', marginLeft: 8, letterSpacing: '0.1em' }}>{open ? '▾' : '▸'}</span></div>
               <div style={{ fontSize: 13, color: 'var(--ink-mute)', marginTop: 2 }}>{d.why}</div>
+              {(conf !== null || rs !== null) && <div style={{ fontSize: 10, color: 'var(--ink-faint)', marginTop: 6, letterSpacing: '0.12em', textTransform: 'uppercase', fontFamily: 'var(--sans)' }}>{conf !== null && <span>{conf}% match</span>}{conf !== null && rs !== null && <span> · </span>}{rs !== null && <span>risk {rs.toFixed(2)}</span>}{d.matchType && <span> · {d.matchType}</span>}</div>}
               {d.condFlag && <div style={{ fontSize: 12, color: 'var(--accent)', marginTop: 4, fontWeight: 600 }}>⚕ {d.condFlag}</div>}
               {d.conditionFlags?.map((cf, j) => <div key={j} style={{ fontSize: 12, color: 'var(--accent)', marginTop: 2, fontWeight: 600 }}>⚕ {cf.condition}: {cf.message}</div>)}
             </div>
             <div style={{ textAlign: 'right' }}><RiskTag level={d.risk || d.riskLevel} /></div>
+          </div>
+          {open && (
+            <div className="fade-in" style={{ padding: '20px 24px 24px 76px', borderBottom: '1px solid var(--rule)', background: 'var(--paper-deep)' }}>
+              {isLive && d.triggers && d.triggers.length > 0 ? (
+                <div style={{ marginBottom: 18 }}>
+                  <div className="eyebrow" style={{ marginBottom: 10 }}>BFS traversal · risk contributors</div>
+                  {d.triggers.map((t, j) => (
+                    <div key={j} style={{ fontSize: 13, color: 'var(--ink)', lineHeight: 1.7, padding: '6px 0', borderBottom: j < d.triggers.length-1 ? '1px dashed var(--rule)' : 'none', fontFamily: 'var(--sans)' }}>
+                      <span className="serif italic" style={{ marginRight: 6 }}>{t.allergen.replace(/_/g, ' ')}</span>
+                      {t.crossReactivity && <span style={{ color: 'var(--ink-mute)' }}>← path {t.crossReactivity.path.join(' → ')} · {Math.round(t.crossReactivity.probability * 100)}%</span>}
+                      {t.isDirect && <span style={{ color: 'var(--ink-mute)' }}>· declared (direct)</span>}
+                      <span style={{ color: 'var(--ink-mute)' }}> · {t.severity?.replace(/_/g, ' ')} · score {t.riskScore?.toFixed(2)}</span>
+                      {t.source && <div style={{ fontSize: 12, color: 'var(--ink-soft)', marginTop: 2, fontStyle: 'italic' }}>source: {t.source}</div>}
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+              {d.hiddenRisks && (<div style={{ marginBottom: 14 }}><div className="eyebrow" style={{ marginBottom: 6 }}>Hidden risks</div><div style={{ fontSize: 13, color: 'var(--ink-soft)', lineHeight: 1.6 }}>{d.hiddenRisks}</div></div>)}
+              {d.alternatives && (<div><div className="eyebrow" style={{ marginBottom: 6 }}>Alternatives</div><div style={{ fontSize: 13, color: 'var(--ink-soft)', lineHeight: 1.6 }}>{d.alternatives}</div></div>)}
+              {!isLive && !d.hiddenRisks && !d.alternatives && <div style={{ fontSize: 12, color: 'var(--ink-mute)', fontStyle: 'italic' }}>Static row — speak a dish or play demo audio to see full BFS traversal.</div>}
+            </div>
+          )}
           </div>
         ); })}
         {inferredCount > 0 && <p style={{ marginTop: 16, fontSize: 12, color: 'var(--ink-mute)', fontStyle: 'italic' }}>* Composition inferred by Claude — not in the on-device knowledge graph.</p>}

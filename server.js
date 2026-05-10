@@ -56,6 +56,45 @@ app.post('/api/claude', async (req, res) => {
   }
 });
 
+// ─── CLAUDE STREAMING (SSE proxy) ───
+app.post('/api/claude/stream', async (req, res) => {
+  if (!process.env.ANTHROPIC_API_KEY) return res.status(503).end();
+  const { systemPrompt, userMessage } = req.body;
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': process.env.ANTHROPIC_API_KEY,
+        'anthropic-version': '2023-06-01',
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1024,
+        system: systemPrompt || '',
+        messages: [{ role: 'user', content: userMessage }],
+        stream: true,
+      }),
+    });
+    if (!resp.ok) { res.write(`event: error\ndata: ${JSON.stringify({ status: resp.status })}\n\n`); return res.end(); }
+    const reader = resp.body.getReader();
+    const decoder = new TextDecoder();
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      res.write(decoder.decode(value, { stream: true }));
+    }
+    res.end();
+  } catch (e) {
+    console.error('Claude stream error:', e.message);
+    try { res.write(`event: error\ndata: ${JSON.stringify({ error: e.message })}\n\n`); } catch {}
+    res.end();
+  }
+});
+
 // ─── ELEVENLABS TTS ───
 app.post('/api/tts', async (req, res) => {
   if (!process.env.ELEVENLABS_API_KEY) return res.status(503).json({ error: 'No ELEVENLABS_API_KEY' });

@@ -1,10 +1,40 @@
 {
   "meta": {
     "version": "1.0.0",
-    "cuisines": ["north_indian", "japanese", "thai"],
-    "allergen_categories": ["milk", "peanut", "tree_nut", "egg", "wheat", "soy", "fish", "shellfish", "sesame", "allium", "gluten", "buckwheat", "coconut"],
-    "conditions": ["celiac", "ckd", "diabetes", "gout", "histamine_intolerance", "pku", "fodmap"],
-    "severity_levels": ["primary_ingredient", "base_ingredient", "optional_ingredient", "trace_risk"]
+    "cuisines": [
+      "north_indian",
+      "japanese"
+    ],
+    "allergen_categories": [
+      "milk",
+      "peanut",
+      "tree_nut",
+      "egg",
+      "wheat",
+      "soy",
+      "fish",
+      "shellfish",
+      "sesame",
+      "allium",
+      "gluten",
+      "buckwheat",
+      "coconut"
+    ],
+    "conditions": [
+      "celiac",
+      "ckd",
+      "diabetes",
+      "gout",
+      "histamine_intolerance",
+      "pku",
+      "fodmap"
+    ],
+    "severity_levels": [
+      "primary_ingredient",
+      "base_ingredient",
+      "optional_ingredient",
+      "trace_risk"
+    ]
   },
   "cuisine_briefings": {
     "north_indian": {
@@ -54,238 +84,569 @@
         "Edamame (soybeans) — if soy is not an issue, these are simple and safe.",
         "Request 'shoyu-nuki' (no soy sauce) — but cross-contact from prep surfaces remains."
       ]
-    },
-    "thai": {
-      "region": "Thailand",
-      "overview": "Thai cuisine uses fish sauce and shrimp paste as foundational umami sources. Peanuts are extremely common. Coconut milk is the base of most curries. Egg appears in pad thai, fried rice, and many noodle dishes.",
-      "threat_landscape": [
-        "Fish sauce (nam pla) is in virtually every savory Thai dish. It is fermented fish — relevant for fish allergy and histamine intolerance.",
-        "Shrimp paste (kapi) is in curry pastes, som tam, and many sauces. Even dishes without visible shrimp contain shrimp-derived ingredients.",
-        "Peanuts: crushed peanuts on pad thai, satay sauce, som tam, many noodle dishes. Major anaphylaxis risk.",
-        "Coconut milk: base of green, red, yellow, massaman, panang curries. Tree nut cross-reactivity debated.",
-        "Egg: pad thai, fried rice, egg noodles, kai jeow (Thai omelet).",
-        "Soy sauce: used in stir-fries and noodle dishes. Contains wheat."
-      ],
-      "cross_contamination": [
-        "Woks are rarely fully cleaned between dishes — peanut, shellfish, egg residue is common.",
-        "Mortar and pestle for curry paste and som tam — shared across preparations. Peanut and shrimp cross-contact.",
-        "Street food carts use single oil vats for all frying.",
-        "Curry pastes are pre-made in batches — shrimp paste is already mixed in."
-      ],
-      "safe_alternatives": [
-        "Steamed jasmine rice is reliably safe.",
-        "Grilled meats (moo ping, gai yang) — confirm no peanut or fish sauce in marinade.",
-        "Papaya salad (som tam) can be made without peanuts or shrimp — specify 'mai sai thua, mai sai kung haeng'.",
-        "Clear broth soups (tom jued) — simpler base than tom yum/tom kha."
-      ]
     }
   },
   "dishes": {
     "north_indian": [
       {
         "dish": "Butter Chicken (Murgh Makhani)",
-        "ingredients": ["chicken", "butter", "cream", "tomato", "onion", "garlic", "ginger", "cashew paste", "garam masala", "fenugreek leaves", "yogurt"],
+        "ingredients": [
+          "chicken",
+          "butter",
+          "cream",
+          "tomato",
+          "onion",
+          "garlic",
+          "ginger",
+          "cashew paste",
+          "garam masala",
+          "fenugreek leaves",
+          "yogurt"
+        ],
         "allergens": {
-          "milk": {"present": true, "source": "butter, cream, yogurt marinade", "severity": "primary_ingredient"},
-          "tree_nut": {"present": true, "source": "cashew paste for gravy body", "severity": "base_ingredient"},
-          "allium": {"present": true, "source": "onion, garlic", "severity": "base_ingredient"}
+          "milk": {
+            "present": true,
+            "source": "butter, cream, yogurt marinade",
+            "severity": "primary_ingredient"
+          },
+          "tree_nut": {
+            "present": true,
+            "source": "cashew paste for gravy body",
+            "severity": "base_ingredient"
+          },
+          "allium": {
+            "present": true,
+            "source": "onion, garlic",
+            "severity": "base_ingredient"
+          }
         },
         "hidden_risks": "Cashew paste is rarely listed on menus but is standard. Yogurt in the marinade is invisible in final dish. Fenugreek can cause reactions in legume-sensitive individuals.",
         "alternatives": "Jain version removes onion/garlic but retains dairy and nuts. Dairy-free version is not standard."
       },
       {
         "dish": "Palak Paneer",
-        "ingredients": ["spinach", "paneer", "cream", "onion", "garlic", "ginger", "cumin", "garam masala", "ghee"],
+        "ingredients": [
+          "spinach",
+          "paneer",
+          "cream",
+          "onion",
+          "garlic",
+          "ginger",
+          "cumin",
+          "garam masala",
+          "ghee"
+        ],
         "allergens": {
-          "milk": {"present": true, "source": "paneer, cream, ghee", "severity": "primary_ingredient"},
-          "allium": {"present": true, "source": "onion, garlic", "severity": "base_ingredient"}
+          "milk": {
+            "present": true,
+            "source": "paneer, cream, ghee",
+            "severity": "primary_ingredient"
+          },
+          "allium": {
+            "present": true,
+            "source": "onion, garlic",
+            "severity": "base_ingredient"
+          }
         },
         "hidden_risks": "Ghee is often assumed to be 'not dairy' by staff. Some versions add cashew paste for creaminess.",
         "alternatives": "Jain preparation removes onion/garlic but retains all dairy. Tofu substitution for paneer is non-standard in India."
       },
       {
         "dish": "Dal Makhani",
-        "ingredients": ["black lentils", "kidney beans", "butter", "cream", "onion", "garlic", "ginger", "tomato", "garam masala", "ghee"],
+        "ingredients": [
+          "black lentils",
+          "kidney beans",
+          "butter",
+          "cream",
+          "onion",
+          "garlic",
+          "ginger",
+          "tomato",
+          "garam masala",
+          "ghee"
+        ],
         "allergens": {
-          "milk": {"present": true, "source": "butter, cream, ghee", "severity": "primary_ingredient"},
-          "allium": {"present": true, "source": "onion, garlic", "severity": "base_ingredient"}
+          "milk": {
+            "present": true,
+            "source": "butter, cream, ghee",
+            "severity": "primary_ingredient"
+          },
+          "allium": {
+            "present": true,
+            "source": "onion, garlic",
+            "severity": "base_ingredient"
+          }
         },
         "hidden_risks": "The 'makhani' (butter) in the name signals dairy. Even 'plain dal' at most restaurants has ghee tempering (tadka). Some versions simmer overnight with butter.",
         "alternatives": "Ask for dal without tadka/tempering — this removes ghee. Not standard."
       },
       {
         "dish": "Naan",
-        "ingredients": ["wheat flour (maida)", "yogurt", "ghee", "yeast", "sugar", "salt"],
+        "ingredients": [
+          "wheat flour (maida)",
+          "yogurt",
+          "ghee",
+          "yeast",
+          "sugar",
+          "salt"
+        ],
         "allergens": {
-          "wheat": {"present": true, "source": "refined wheat flour (maida)", "severity": "primary_ingredient"},
-          "milk": {"present": true, "source": "yogurt in dough, ghee brushed on surface", "severity": "base_ingredient"},
-          "gluten": {"present": true, "source": "wheat flour", "severity": "primary_ingredient"}
+          "wheat": {
+            "present": true,
+            "source": "refined wheat flour (maida)",
+            "severity": "primary_ingredient"
+          },
+          "milk": {
+            "present": true,
+            "source": "yogurt in dough, ghee brushed on surface",
+            "severity": "base_ingredient"
+          },
+          "gluten": {
+            "present": true,
+            "source": "wheat flour",
+            "severity": "primary_ingredient"
+          }
         },
         "hidden_risks": "Even 'plain' naan contains yogurt in the dough and ghee on the surface. Garlic naan adds allium. Tandoor is shared with dairy-containing items.",
         "alternatives": "Rice is the wheat-free alternative. No safe naan variant exists for wheat/gluten."
       },
       {
         "dish": "Chole (Chana Masala)",
-        "ingredients": ["chickpeas", "onion", "tomato", "garlic", "ginger", "cumin", "coriander", "garam masala", "oil"],
+        "ingredients": [
+          "chickpeas",
+          "onion",
+          "tomato",
+          "garlic",
+          "ginger",
+          "cumin",
+          "coriander",
+          "garam masala",
+          "oil"
+        ],
         "allergens": {
-          "allium": {"present": true, "source": "onion, garlic", "severity": "base_ingredient"}
+          "allium": {
+            "present": true,
+            "source": "onion, garlic",
+            "severity": "base_ingredient"
+          }
         },
         "hidden_risks": "Generally dairy-free and nut-free. However, some restaurants add cream for richness. Served with bhatura (deep-fried wheat bread) by default — wheat cross-contact on the plate.",
         "alternatives": "One of the safer North Indian options for dairy/nut-free diets. Jain version removes onion/garlic. Serve with rice instead of bhatura for wheat-free."
       },
       {
         "dish": "Biryani",
-        "ingredients": ["basmati rice", "meat or vegetables", "onion", "garlic", "ginger", "yogurt", "ghee", "saffron", "whole spices", "fried onions", "mint", "cilantro"],
+        "ingredients": [
+          "basmati rice",
+          "meat or vegetables",
+          "onion",
+          "garlic",
+          "ginger",
+          "yogurt",
+          "ghee",
+          "saffron",
+          "whole spices",
+          "fried onions",
+          "mint",
+          "cilantro"
+        ],
         "allergens": {
-          "milk": {"present": true, "source": "yogurt in marinade, ghee", "severity": "base_ingredient"},
-          "allium": {"present": true, "source": "onion (fried + raw), garlic", "severity": "primary_ingredient"}
+          "milk": {
+            "present": true,
+            "source": "yogurt in marinade, ghee",
+            "severity": "base_ingredient"
+          },
+          "allium": {
+            "present": true,
+            "source": "onion (fried + raw), garlic",
+            "severity": "primary_ingredient"
+          }
         },
         "hidden_risks": "Fried onions are a primary flavor — impossible to remove. Some biryanis contain nuts (cashews, almonds) as garnish. Yogurt is in the marinade. Hyderabadi style may have boiled eggs.",
         "alternatives": "Plain pulao is simpler but still contains ghee and onion. Steamed rice is the safe fallback."
       },
       {
         "dish": "Samosa",
-        "ingredients": ["wheat flour", "potato", "peas", "onion", "cumin", "coriander", "green chili", "oil for deep frying"],
+        "ingredients": [
+          "wheat flour",
+          "potato",
+          "peas",
+          "onion",
+          "cumin",
+          "coriander",
+          "green chili",
+          "oil for deep frying"
+        ],
         "allergens": {
-          "wheat": {"present": true, "source": "outer shell is wheat flour", "severity": "primary_ingredient"},
-          "gluten": {"present": true, "source": "wheat flour shell", "severity": "primary_ingredient"},
-          "allium": {"present": true, "source": "onion in filling", "severity": "optional_ingredient"}
+          "wheat": {
+            "present": true,
+            "source": "outer shell is wheat flour",
+            "severity": "primary_ingredient"
+          },
+          "gluten": {
+            "present": true,
+            "source": "wheat flour shell",
+            "severity": "primary_ingredient"
+          },
+          "allium": {
+            "present": true,
+            "source": "onion in filling",
+            "severity": "optional_ingredient"
+          }
         },
         "hidden_risks": "Deep-fried in shared oil with other wheat and dairy items. Some fillings include paneer (dairy). Oil is typically reused extensively.",
         "alternatives": "No safe alternative for wheat-free. Jain samosas exist (no onion/garlic) but still wheat."
       },
       {
         "dish": "Tandoori Chicken",
-        "ingredients": ["chicken", "yogurt", "lemon juice", "garlic", "ginger", "tandoori masala", "red chili powder", "oil"],
+        "ingredients": [
+          "chicken",
+          "yogurt",
+          "lemon juice",
+          "garlic",
+          "ginger",
+          "tandoori masala",
+          "red chili powder",
+          "oil"
+        ],
         "allergens": {
-          "milk": {"present": true, "source": "yogurt marinade", "severity": "base_ingredient"},
-          "allium": {"present": true, "source": "garlic", "severity": "base_ingredient"}
+          "milk": {
+            "present": true,
+            "source": "yogurt marinade",
+            "severity": "base_ingredient"
+          },
+          "allium": {
+            "present": true,
+            "source": "garlic",
+            "severity": "base_ingredient"
+          }
         },
         "hidden_risks": "The yogurt marinade is invisible in the final product. Red color may come from food coloring. Cooked in tandoor with naan — wheat cross-contact.",
         "alternatives": "Reshmi kebab and seekh kebab also use yogurt. Difficult to find yogurt-free tandoor meats in North India."
       },
       {
         "dish": "Korma",
-        "ingredients": ["meat or vegetables", "yogurt", "cream", "cashew paste", "almond paste", "onion", "garlic", "ginger", "ghee", "cardamom", "saffron"],
+        "ingredients": [
+          "meat or vegetables",
+          "yogurt",
+          "cream",
+          "cashew paste",
+          "almond paste",
+          "onion",
+          "garlic",
+          "ginger",
+          "ghee",
+          "cardamom",
+          "saffron"
+        ],
         "allergens": {
-          "milk": {"present": true, "source": "yogurt, cream, ghee", "severity": "primary_ingredient"},
-          "tree_nut": {"present": true, "source": "cashew paste, almond paste", "severity": "primary_ingredient"},
-          "allium": {"present": true, "source": "onion, garlic", "severity": "base_ingredient"}
+          "milk": {
+            "present": true,
+            "source": "yogurt, cream, ghee",
+            "severity": "primary_ingredient"
+          },
+          "tree_nut": {
+            "present": true,
+            "source": "cashew paste, almond paste",
+            "severity": "primary_ingredient"
+          },
+          "allium": {
+            "present": true,
+            "source": "onion, garlic",
+            "severity": "base_ingredient"
+          }
         },
         "hidden_risks": "Nut pastes are the DEFINING ingredient of korma — cannot be removed. This is one of the highest-risk dishes for nut allergies in Indian cuisine.",
         "alternatives": "No safe alternative for nut-allergic diners. Choose a tomato-based curry (like rogan josh or vindaloo) instead."
       },
       {
         "dish": "Rogan Josh",
-        "ingredients": ["lamb", "yogurt", "onion", "garlic", "ginger", "kashmiri chili", "fennel", "ginger powder", "oil"],
+        "ingredients": [
+          "lamb",
+          "yogurt",
+          "onion",
+          "garlic",
+          "ginger",
+          "kashmiri chili",
+          "fennel",
+          "ginger powder",
+          "oil"
+        ],
         "allergens": {
-          "milk": {"present": true, "source": "yogurt", "severity": "base_ingredient"},
-          "allium": {"present": true, "source": "onion, garlic", "severity": "base_ingredient"}
+          "milk": {
+            "present": true,
+            "source": "yogurt",
+            "severity": "base_ingredient"
+          },
+          "allium": {
+            "present": true,
+            "source": "onion, garlic",
+            "severity": "base_ingredient"
+          }
         },
         "hidden_risks": "Kashmiri versions may not use onion/garlic (Pandit-style) — but restaurant versions almost always do. Generally nut-free, making it safer than korma for nut allergies.",
         "alternatives": "One of the better options for nut-free diets. Pandit-style version is allium-free."
       },
       {
         "dish": "Puri",
-        "ingredients": ["whole wheat flour", "salt", "oil for deep frying"],
+        "ingredients": [
+          "whole wheat flour",
+          "salt",
+          "oil for deep frying"
+        ],
         "allergens": {
-          "wheat": {"present": true, "source": "whole wheat flour", "severity": "primary_ingredient"},
-          "gluten": {"present": true, "source": "wheat flour", "severity": "primary_ingredient"}
+          "wheat": {
+            "present": true,
+            "source": "whole wheat flour",
+            "severity": "primary_ingredient"
+          },
+          "gluten": {
+            "present": true,
+            "source": "wheat flour",
+            "severity": "primary_ingredient"
+          }
         },
         "hidden_risks": "Deep-fried in shared oil. Simpler than naan (no dairy in dough), but cross-contamination from shared fryer.",
         "alternatives": "Rice or rice-based items for wheat-free."
       },
       {
         "dish": "Aloo Gobi",
-        "ingredients": ["potato", "cauliflower", "onion", "tomato", "garlic", "ginger", "turmeric", "cumin", "oil"],
+        "ingredients": [
+          "potato",
+          "cauliflower",
+          "onion",
+          "tomato",
+          "garlic",
+          "ginger",
+          "turmeric",
+          "cumin",
+          "oil"
+        ],
         "allergens": {
-          "allium": {"present": true, "source": "onion, garlic", "severity": "base_ingredient"}
+          "allium": {
+            "present": true,
+            "source": "onion, garlic",
+            "severity": "base_ingredient"
+          }
         },
         "hidden_risks": "Generally dairy-free and nut-free, making it one of the safer options. Some restaurants add cream or ghee for richness.",
         "alternatives": "Jain version without onion/garlic. Confirm no ghee/cream added."
       },
       {
         "dish": "Gulab Jamun",
-        "ingredients": ["khoya (reduced milk solids)", "wheat flour", "sugar syrup", "cardamom", "rose water", "ghee for frying"],
+        "ingredients": [
+          "khoya (reduced milk solids)",
+          "wheat flour",
+          "sugar syrup",
+          "cardamom",
+          "rose water",
+          "ghee for frying"
+        ],
         "allergens": {
-          "milk": {"present": true, "source": "khoya is concentrated milk", "severity": "primary_ingredient"},
-          "wheat": {"present": true, "source": "wheat flour in dough", "severity": "base_ingredient"},
-          "gluten": {"present": true, "source": "wheat flour", "severity": "base_ingredient"}
+          "milk": {
+            "present": true,
+            "source": "khoya is concentrated milk",
+            "severity": "primary_ingredient"
+          },
+          "wheat": {
+            "present": true,
+            "source": "wheat flour in dough",
+            "severity": "base_ingredient"
+          },
+          "gluten": {
+            "present": true,
+            "source": "wheat flour",
+            "severity": "base_ingredient"
+          }
         },
         "hidden_risks": "Khoya IS milk. Fried in ghee. Sugar syrup is the only safe component for dairy/wheat-allergic.",
         "alternatives": "Fruit-based desserts or rice kheer (also dairy-based). Very few dairy-free Indian desserts exist."
       },
       {
         "dish": "Raita",
-        "ingredients": ["yogurt", "cucumber", "onion", "cumin", "salt", "mint"],
+        "ingredients": [
+          "yogurt",
+          "cucumber",
+          "onion",
+          "cumin",
+          "salt",
+          "mint"
+        ],
         "allergens": {
-          "milk": {"present": true, "source": "yogurt is the entire dish", "severity": "primary_ingredient"},
-          "allium": {"present": true, "source": "onion (common addition)", "severity": "optional_ingredient"}
+          "milk": {
+            "present": true,
+            "source": "yogurt is the entire dish",
+            "severity": "primary_ingredient"
+          },
+          "allium": {
+            "present": true,
+            "source": "onion (common addition)",
+            "severity": "optional_ingredient"
+          }
         },
         "hidden_risks": "This IS dairy. Often served automatically as a side. Cross-contact with main dishes if on the same plate.",
         "alternatives": "Salad with lemon dressing as a cooling side instead."
       },
       {
         "dish": "Malai Kofta",
-        "ingredients": ["paneer", "potato", "cashew", "cream", "onion", "garlic", "ghee", "cardamom", "garam masala"],
+        "ingredients": [
+          "paneer",
+          "potato",
+          "cashew",
+          "cream",
+          "onion",
+          "garlic",
+          "ghee",
+          "cardamom",
+          "garam masala"
+        ],
         "allergens": {
-          "milk": {"present": true, "source": "paneer, cream, ghee", "severity": "primary_ingredient"},
-          "tree_nut": {"present": true, "source": "cashew in kofta and gravy", "severity": "primary_ingredient"},
-          "allium": {"present": true, "source": "onion, garlic in gravy", "severity": "base_ingredient"}
+          "milk": {
+            "present": true,
+            "source": "paneer, cream, ghee",
+            "severity": "primary_ingredient"
+          },
+          "tree_nut": {
+            "present": true,
+            "source": "cashew in kofta and gravy",
+            "severity": "primary_ingredient"
+          },
+          "allium": {
+            "present": true,
+            "source": "onion, garlic in gravy",
+            "severity": "base_ingredient"
+          }
         },
         "hidden_risks": "The kofta balls contain cashew AND paneer. The gravy contains cream AND cashew paste. Triple dairy + nut exposure.",
         "alternatives": "No safe variant for dairy or nut allergies. Choose tomato-based or lentil-based dishes."
       },
       {
         "dish": "Rajma (Kidney Bean Curry)",
-        "ingredients": ["kidney beans", "onion", "tomato", "garlic", "ginger", "cumin", "garam masala", "oil"],
+        "ingredients": [
+          "kidney beans",
+          "onion",
+          "tomato",
+          "garlic",
+          "ginger",
+          "cumin",
+          "garam masala",
+          "oil"
+        ],
         "allergens": {
-          "allium": {"present": true, "source": "onion, garlic", "severity": "base_ingredient"}
+          "allium": {
+            "present": true,
+            "source": "onion, garlic",
+            "severity": "base_ingredient"
+          }
         },
         "hidden_risks": "Generally one of the safest options — no dairy or nuts in standard preparation. Some home-style versions add cream or ghee. High purine content — flag for gout.",
         "alternatives": "Jain version without onion/garlic. Confirm no cream added. Good for dairy-free and nut-free diets."
       },
       {
         "dish": "Paneer Tikka",
-        "ingredients": ["paneer", "yogurt", "bell pepper", "onion", "garlic", "ginger", "tandoori masala", "oil"],
+        "ingredients": [
+          "paneer",
+          "yogurt",
+          "bell pepper",
+          "onion",
+          "garlic",
+          "ginger",
+          "tandoori masala",
+          "oil"
+        ],
         "allergens": {
-          "milk": {"present": true, "source": "paneer (primary), yogurt marinade", "severity": "primary_ingredient"},
-          "allium": {"present": true, "source": "onion, garlic", "severity": "base_ingredient"}
+          "milk": {
+            "present": true,
+            "source": "paneer (primary), yogurt marinade",
+            "severity": "primary_ingredient"
+          },
+          "allium": {
+            "present": true,
+            "source": "onion, garlic",
+            "severity": "base_ingredient"
+          }
         },
         "hidden_risks": "Paneer IS dairy. Cooked in shared tandoor with naan.",
         "alternatives": "Mushroom tikka or vegetable seekh kebab — but confirm yogurt-free preparation."
       },
       {
         "dish": "Pav Bhaji",
-        "ingredients": ["mixed vegetables", "butter", "pav bread (wheat)", "onion", "garlic", "pav bhaji masala", "lemon"],
+        "ingredients": [
+          "mixed vegetables",
+          "butter",
+          "pav bread (wheat)",
+          "onion",
+          "garlic",
+          "pav bhaji masala",
+          "lemon"
+        ],
         "allergens": {
-          "milk": {"present": true, "source": "excessive butter is defining feature", "severity": "primary_ingredient"},
-          "wheat": {"present": true, "source": "pav bread", "severity": "primary_ingredient"},
-          "gluten": {"present": true, "source": "pav bread", "severity": "primary_ingredient"},
-          "allium": {"present": true, "source": "onion, garlic", "severity": "base_ingredient"}
+          "milk": {
+            "present": true,
+            "source": "excessive butter is defining feature",
+            "severity": "primary_ingredient"
+          },
+          "wheat": {
+            "present": true,
+            "source": "pav bread",
+            "severity": "primary_ingredient"
+          },
+          "gluten": {
+            "present": true,
+            "source": "pav bread",
+            "severity": "primary_ingredient"
+          },
+          "allium": {
+            "present": true,
+            "source": "onion, garlic",
+            "severity": "base_ingredient"
+          }
         },
         "hidden_risks": "Butter is not just an ingredient — it is THE ingredient. Pav is a wheat bread roll. The bhaji itself may be wheat-free but is cooked on a butter-laden griddle.",
         "alternatives": "Eat the bhaji only (without pav) for wheat-free — but dairy remains. No realistic dairy-free version."
       },
       {
         "dish": "Idli",
-        "ingredients": ["rice", "urad dal (black lentil)", "fenugreek seeds", "salt"],
+        "ingredients": [
+          "rice",
+          "urad dal (black lentil)",
+          "fenugreek seeds",
+          "salt"
+        ],
         "allergens": {},
         "hidden_risks": "One of the safest options in Indian cuisine. Naturally dairy-free, nut-free, egg-free, wheat-free. Fermented — may trigger histamine sensitivity. Served with sambar (may contain allium) and coconut chutney (tree nut debate).",
         "alternatives": "Eat plain or with tomato chutney to avoid coconut and allium."
       },
       {
         "dish": "Dosa",
-        "ingredients": ["rice", "urad dal", "fenugreek seeds", "oil"],
+        "ingredients": [
+          "rice",
+          "urad dal",
+          "fenugreek seeds",
+          "oil"
+        ],
         "allergens": {},
         "hidden_risks": "Plain dosa is safe. Masala dosa filling contains potato + onion + mustard seeds. Some restaurants spread ghee on the dosa. Served with sambar and coconut chutney — same concerns as idli.",
         "alternatives": "Specify 'plain dosa without ghee.' Fermented — histamine concern."
       },
       {
         "dish": "Vindaloo",
-        "ingredients": ["meat", "vinegar", "garlic", "ginger", "onion", "chili", "cumin", "mustard seeds", "oil"],
+        "ingredients": [
+          "meat",
+          "vinegar",
+          "garlic",
+          "ginger",
+          "onion",
+          "chili",
+          "cumin",
+          "mustard seeds",
+          "oil"
+        ],
         "allergens": {
-          "allium": {"present": true, "source": "garlic (heavy), onion", "severity": "primary_ingredient"}
+          "allium": {
+            "present": true,
+            "source": "garlic (heavy), onion",
+            "severity": "primary_ingredient"
+          }
         },
         "hidden_risks": "One of the few North Indian-adjacent dishes that is typically dairy-free and nut-free (Goan Portuguese influence). Very heavy on garlic. Extremely spicy.",
         "alternatives": "Good option for dairy/nut-free diets if allium is not an issue."
@@ -294,356 +655,484 @@
     "japanese": [
       {
         "dish": "Miso Soup",
-        "ingredients": ["miso paste (soy)", "dashi (bonito flakes + kombu)", "tofu", "wakame seaweed", "green onion"],
+        "ingredients": [
+          "miso paste (soy)",
+          "dashi (bonito flakes + kombu)",
+          "tofu",
+          "wakame seaweed",
+          "green onion"
+        ],
         "allergens": {
-          "soy": {"present": true, "source": "miso paste", "severity": "primary_ingredient"},
-          "fish": {"present": true, "source": "dashi (bonito/katsuobushi)", "severity": "base_ingredient"},
-          "wheat": {"present": true, "source": "some miso pastes contain wheat/barley", "severity": "trace_risk"},
-          "allium": {"present": true, "source": "green onion garnish", "severity": "optional_ingredient"}
+          "soy": {
+            "present": true,
+            "source": "miso paste",
+            "severity": "primary_ingredient"
+          },
+          "fish": {
+            "present": true,
+            "source": "dashi (bonito/katsuobushi)",
+            "severity": "base_ingredient"
+          },
+          "wheat": {
+            "present": true,
+            "source": "some miso pastes contain wheat/barley",
+            "severity": "trace_risk"
+          },
+          "allium": {
+            "present": true,
+            "source": "green onion garnish",
+            "severity": "optional_ingredient"
+          }
         },
         "hidden_risks": "Dashi is invisible but present. 'Vegetarian' miso soup in Japan is rare — assume fish unless confirmed. Barley miso (mugi miso) contains gluten.",
         "alternatives": "Request kombu-only dashi (no bonito) — some places can accommodate. Avoid entirely if soy allergy."
       },
       {
         "dish": "Sushi (Nigiri)",
-        "ingredients": ["sushi rice (vinegared)", "fresh fish", "wasabi", "soy sauce (served alongside)"],
+        "ingredients": [
+          "sushi rice (vinegared)",
+          "fresh fish",
+          "wasabi",
+          "soy sauce (served alongside)"
+        ],
         "allergens": {
-          "fish": {"present": true, "source": "raw fish topping", "severity": "primary_ingredient"},
-          "soy": {"present": true, "source": "soy sauce for dipping", "severity": "optional_ingredient"},
-          "wheat": {"present": true, "source": "soy sauce contains wheat", "severity": "optional_ingredient"}
+          "fish": {
+            "present": true,
+            "source": "raw fish topping",
+            "severity": "primary_ingredient"
+          },
+          "soy": {
+            "present": true,
+            "source": "soy sauce for dipping",
+            "severity": "optional_ingredient"
+          },
+          "wheat": {
+            "present": true,
+            "source": "soy sauce contains wheat",
+            "severity": "optional_ingredient"
+          }
         },
         "hidden_risks": "Sushi rice contains rice vinegar, sugar, and salt — generally safe. Cross-contact on cutting boards between different fish and shellfish. Wasabi may be horseradish-based imitation. Conveyor belt sushi has high cross-contact risk.",
         "alternatives": "Kappa maki (cucumber roll) or tamago nigiri for fish-free. Eat without soy sauce for wheat/soy-free."
       },
       {
         "dish": "Tempura",
-        "ingredients": ["wheat flour", "egg", "ice water", "shrimp or vegetables", "oil for deep frying"],
+        "ingredients": [
+          "wheat flour",
+          "egg",
+          "ice water",
+          "shrimp or vegetables",
+          "oil for deep frying"
+        ],
         "allergens": {
-          "wheat": {"present": true, "source": "wheat flour batter", "severity": "primary_ingredient"},
-          "egg": {"present": true, "source": "egg in batter", "severity": "base_ingredient"},
-          "shellfish": {"present": true, "source": "shrimp tempura in same oil", "severity": "trace_risk"},
-          "gluten": {"present": true, "source": "wheat flour", "severity": "primary_ingredient"}
+          "wheat": {
+            "present": true,
+            "source": "wheat flour batter",
+            "severity": "primary_ingredient"
+          },
+          "egg": {
+            "present": true,
+            "source": "egg in batter",
+            "severity": "base_ingredient"
+          },
+          "shellfish": {
+            "present": true,
+            "source": "shrimp tempura in same oil",
+            "severity": "trace_risk"
+          },
+          "gluten": {
+            "present": true,
+            "source": "wheat flour",
+            "severity": "primary_ingredient"
+          }
         },
         "hidden_risks": "Even vegetable tempura is fried in the same oil as shrimp tempura. Tentsuyu dipping sauce contains dashi (fish), soy sauce (wheat), and mirin. All tempura is a cross-contact minefield.",
         "alternatives": "No safe tempura variant for wheat, egg, or shellfish allergies. Choose grilled (yaki) items instead."
       },
       {
         "dish": "Ramen",
-        "ingredients": ["wheat noodles", "pork/chicken/fish broth", "soy sauce (tare)", "chashu pork", "egg", "nori", "green onion", "bamboo shoots"],
+        "ingredients": [
+          "wheat noodles",
+          "pork/chicken/fish broth",
+          "soy sauce (tare)",
+          "chashu pork",
+          "egg",
+          "nori",
+          "green onion",
+          "bamboo shoots"
+        ],
         "allergens": {
-          "wheat": {"present": true, "source": "noodles, soy sauce", "severity": "primary_ingredient"},
-          "egg": {"present": true, "source": "ajitsuke tamago (marinated egg), some noodles contain egg", "severity": "base_ingredient"},
-          "soy": {"present": true, "source": "soy sauce tare", "severity": "base_ingredient"},
-          "gluten": {"present": true, "source": "wheat noodles", "severity": "primary_ingredient"},
-          "fish": {"present": true, "source": "fish-based broth in some varieties, bonito in tare", "severity": "optional_ingredient"},
-          "allium": {"present": true, "source": "green onion, garlic oil", "severity": "base_ingredient"}
+          "wheat": {
+            "present": true,
+            "source": "noodles, soy sauce",
+            "severity": "primary_ingredient"
+          },
+          "egg": {
+            "present": true,
+            "source": "ajitsuke tamago (marinated egg), some noodles contain egg",
+            "severity": "base_ingredient"
+          },
+          "soy": {
+            "present": true,
+            "source": "soy sauce tare",
+            "severity": "base_ingredient"
+          },
+          "gluten": {
+            "present": true,
+            "source": "wheat noodles",
+            "severity": "primary_ingredient"
+          },
+          "fish": {
+            "present": true,
+            "source": "fish-based broth in some varieties, bonito in tare",
+            "severity": "optional_ingredient"
+          },
+          "allium": {
+            "present": true,
+            "source": "green onion, garlic oil",
+            "severity": "base_ingredient"
+          }
         },
         "hidden_risks": "Ramen is a multi-allergen dish. Tonkotsu broth is pork. Shoyu ramen tare is soy+wheat. Even 'shio' (salt) ramen typically contains dashi. Egg noodles are standard.",
         "alternatives": "No safe ramen for wheat allergy. Rice noodle substitution is not standard in Japan. Udon has the same wheat issue."
       },
       {
         "dish": "Soba (Buckwheat Noodles)",
-        "ingredients": ["buckwheat flour", "wheat flour", "water"],
+        "ingredients": [
+          "buckwheat flour",
+          "wheat flour",
+          "water"
+        ],
         "allergens": {
-          "buckwheat": {"present": true, "source": "primary ingredient", "severity": "primary_ingredient"},
-          "wheat": {"present": true, "source": "most soba is 60-80% buckwheat + wheat flour", "severity": "base_ingredient"},
-          "gluten": {"present": true, "source": "wheat flour component", "severity": "base_ingredient"}
+          "buckwheat": {
+            "present": true,
+            "source": "primary ingredient",
+            "severity": "primary_ingredient"
+          },
+          "wheat": {
+            "present": true,
+            "source": "most soba is 60-80% buckwheat + wheat flour",
+            "severity": "base_ingredient"
+          },
+          "gluten": {
+            "present": true,
+            "source": "wheat flour component",
+            "severity": "base_ingredient"
+          }
         },
         "hidden_risks": "Buckwheat allergy can cause severe anaphylaxis. Even '100% buckwheat' (juwari soba) may be processed on shared equipment with wheat. Soba cooking water (sobayu) is served as a drink — buckwheat exposure. Dipping sauce contains soy sauce (wheat) and dashi (fish).",
         "alternatives": "Udon if buckwheat is the concern (but contains wheat). Rice dishes if both are concerns."
       },
       {
         "dish": "Tonkatsu (Breaded Pork Cutlet)",
-        "ingredients": ["pork", "wheat flour", "egg", "panko breadcrumbs", "oil for deep frying", "tonkatsu sauce"],
+        "ingredients": [
+          "pork",
+          "wheat flour",
+          "egg",
+          "panko breadcrumbs",
+          "oil for deep frying",
+          "tonkatsu sauce"
+        ],
         "allergens": {
-          "wheat": {"present": true, "source": "flour coating + panko breadcrumbs", "severity": "primary_ingredient"},
-          "egg": {"present": true, "source": "egg wash for breading", "severity": "base_ingredient"},
-          "gluten": {"present": true, "source": "wheat flour + panko", "severity": "primary_ingredient"},
-          "soy": {"present": true, "source": "tonkatsu sauce contains soy", "severity": "optional_ingredient"}
+          "wheat": {
+            "present": true,
+            "source": "flour coating + panko breadcrumbs",
+            "severity": "primary_ingredient"
+          },
+          "egg": {
+            "present": true,
+            "source": "egg wash for breading",
+            "severity": "base_ingredient"
+          },
+          "gluten": {
+            "present": true,
+            "source": "wheat flour + panko",
+            "severity": "primary_ingredient"
+          },
+          "soy": {
+            "present": true,
+            "source": "tonkatsu sauce contains soy",
+            "severity": "optional_ingredient"
+          }
         },
         "hidden_risks": "Triple wheat exposure (flour, egg wash, panko). Tonkatsu sauce contains soy sauce. Shared fryer with other breaded items. Katsu curry adds curry roux (also contains wheat flour).",
         "alternatives": "Grilled pork (buta shogayaki — ginger pork) avoids breading but contains soy sauce."
       },
       {
         "dish": "Edamame",
-        "ingredients": ["soybeans", "salt"],
+        "ingredients": [
+          "soybeans",
+          "salt"
+        ],
         "allergens": {
-          "soy": {"present": true, "source": "edamame ARE soybeans", "severity": "primary_ingredient"}
+          "soy": {
+            "present": true,
+            "source": "edamame ARE soybeans",
+            "severity": "primary_ingredient"
+          }
         },
         "hidden_risks": "This IS soy. Otherwise very simple and free of other common allergens.",
         "alternatives": "Salted cucumber (tsukemono) as a simple starter alternative."
       },
       {
         "dish": "Gyoza (Dumplings)",
-        "ingredients": ["wheat flour wrapper", "ground pork", "cabbage", "garlic", "ginger", "green onion", "sesame oil", "soy sauce"],
+        "ingredients": [
+          "wheat flour wrapper",
+          "ground pork",
+          "cabbage",
+          "garlic",
+          "ginger",
+          "green onion",
+          "sesame oil",
+          "soy sauce"
+        ],
         "allergens": {
-          "wheat": {"present": true, "source": "wrapper", "severity": "primary_ingredient"},
-          "sesame": {"present": true, "source": "sesame oil in filling", "severity": "base_ingredient"},
-          "soy": {"present": true, "source": "soy sauce in filling and for dipping", "severity": "base_ingredient"},
-          "allium": {"present": true, "source": "garlic, green onion", "severity": "base_ingredient"},
-          "gluten": {"present": true, "source": "wheat wrapper", "severity": "primary_ingredient"}
+          "wheat": {
+            "present": true,
+            "source": "wrapper",
+            "severity": "primary_ingredient"
+          },
+          "sesame": {
+            "present": true,
+            "source": "sesame oil in filling",
+            "severity": "base_ingredient"
+          },
+          "soy": {
+            "present": true,
+            "source": "soy sauce in filling and for dipping",
+            "severity": "base_ingredient"
+          },
+          "allium": {
+            "present": true,
+            "source": "garlic, green onion",
+            "severity": "base_ingredient"
+          },
+          "gluten": {
+            "present": true,
+            "source": "wheat wrapper",
+            "severity": "primary_ingredient"
+          }
         },
         "hidden_risks": "Sesame oil is standard in the filling but rarely mentioned. Dipping sauce is soy-based. Pan-fried in shared oil.",
         "alternatives": "No standard wheat-free gyoza in Japan."
       },
       {
         "dish": "Onigiri (Rice Ball)",
-        "ingredients": ["rice", "nori (seaweed)", "filling (varies: salmon, umeboshi, tuna mayo, kombu)"],
+        "ingredients": [
+          "rice",
+          "nori (seaweed)",
+          "filling (varies: salmon, umeboshi, tuna mayo, kombu)"
+        ],
         "allergens": {
-          "fish": {"present": true, "source": "salmon, tuna fillings", "severity": "primary_ingredient"},
-          "egg": {"present": true, "source": "mayonnaise in tuna mayo filling", "severity": "optional_ingredient"},
-          "soy": {"present": true, "source": "soy sauce seasoning in some fillings", "severity": "trace_risk"}
+          "fish": {
+            "present": true,
+            "source": "salmon, tuna fillings",
+            "severity": "primary_ingredient"
+          },
+          "egg": {
+            "present": true,
+            "source": "mayonnaise in tuna mayo filling",
+            "severity": "optional_ingredient"
+          },
+          "soy": {
+            "present": true,
+            "source": "soy sauce seasoning in some fillings",
+            "severity": "trace_risk"
+          }
         },
         "hidden_risks": "Filling determines allergen profile. Umeboshi (pickled plum) and kombu (kelp) are the safest fillings. Convenience store onigiri have ingredient lists in Japanese.",
         "alternatives": "Choose umeboshi or kombu filling for fish/egg/dairy-free. One of the safest grab-and-go options in Japan."
       },
       {
         "dish": "Udon",
-        "ingredients": ["wheat flour", "water", "salt", "dashi broth", "soy sauce", "mirin"],
+        "ingredients": [
+          "wheat flour",
+          "water",
+          "salt",
+          "dashi broth",
+          "soy sauce",
+          "mirin"
+        ],
         "allergens": {
-          "wheat": {"present": true, "source": "udon noodles are pure wheat", "severity": "primary_ingredient"},
-          "gluten": {"present": true, "source": "wheat noodles", "severity": "primary_ingredient"},
-          "fish": {"present": true, "source": "dashi broth", "severity": "base_ingredient"},
-          "soy": {"present": true, "source": "soy sauce in broth", "severity": "base_ingredient"}
+          "wheat": {
+            "present": true,
+            "source": "udon noodles are pure wheat",
+            "severity": "primary_ingredient"
+          },
+          "gluten": {
+            "present": true,
+            "source": "wheat noodles",
+            "severity": "primary_ingredient"
+          },
+          "fish": {
+            "present": true,
+            "source": "dashi broth",
+            "severity": "base_ingredient"
+          },
+          "soy": {
+            "present": true,
+            "source": "soy sauce in broth",
+            "severity": "base_ingredient"
+          }
         },
         "hidden_risks": "Udon cooking water is often shared with soba — buckwheat cross-contact. Toppings like tempura add egg, wheat, shellfish exposure.",
         "alternatives": "No wheat-free udon. Rice dishes or sashimi without soy sauce for wheat-free meals."
       },
       {
         "dish": "Yakitori (Grilled Chicken Skewers)",
-        "ingredients": ["chicken", "tare sauce (soy sauce, mirin, sugar)", "salt"],
+        "ingredients": [
+          "chicken",
+          "tare sauce (soy sauce, mirin, sugar)",
+          "salt"
+        ],
         "allergens": {
-          "soy": {"present": true, "source": "tare sauce", "severity": "base_ingredient"},
-          "wheat": {"present": true, "source": "soy sauce in tare", "severity": "base_ingredient"}
+          "soy": {
+            "present": true,
+            "source": "tare sauce",
+            "severity": "base_ingredient"
+          },
+          "wheat": {
+            "present": true,
+            "source": "soy sauce in tare",
+            "severity": "base_ingredient"
+          }
         },
         "hidden_risks": "Order 'shio' (salt) style to avoid tare sauce — this eliminates soy and wheat. Shared grill surface between tare and shio items.",
         "alternatives": "Shio yakitori is one of the safest Japanese options for soy/wheat-free diets."
       },
       {
         "dish": "Tamagoyaki (Rolled Omelet)",
-        "ingredients": ["egg", "dashi", "sugar", "soy sauce", "mirin"],
+        "ingredients": [
+          "egg",
+          "dashi",
+          "sugar",
+          "soy sauce",
+          "mirin"
+        ],
         "allergens": {
-          "egg": {"present": true, "source": "egg is the entire dish", "severity": "primary_ingredient"},
-          "fish": {"present": true, "source": "dashi", "severity": "base_ingredient"},
-          "soy": {"present": true, "source": "soy sauce", "severity": "optional_ingredient"},
-          "wheat": {"present": true, "source": "soy sauce", "severity": "trace_risk"}
+          "egg": {
+            "present": true,
+            "source": "egg is the entire dish",
+            "severity": "primary_ingredient"
+          },
+          "fish": {
+            "present": true,
+            "source": "dashi",
+            "severity": "base_ingredient"
+          },
+          "soy": {
+            "present": true,
+            "source": "soy sauce",
+            "severity": "optional_ingredient"
+          },
+          "wheat": {
+            "present": true,
+            "source": "soy sauce",
+            "severity": "trace_risk"
+          }
         },
         "hidden_risks": "This IS egg. Dashi adds hidden fish. Common sushi topping and bento item.",
         "alternatives": "Avoid entirely for egg allergy."
       },
       {
         "dish": "Okonomiyaki (Savory Pancake)",
-        "ingredients": ["wheat flour", "egg", "cabbage", "dashi", "pork belly", "okonomiyaki sauce", "mayonnaise", "bonito flakes", "aonori"],
+        "ingredients": [
+          "wheat flour",
+          "egg",
+          "cabbage",
+          "dashi",
+          "pork belly",
+          "okonomiyaki sauce",
+          "mayonnaise",
+          "bonito flakes",
+          "aonori"
+        ],
         "allergens": {
-          "wheat": {"present": true, "source": "flour batter", "severity": "primary_ingredient"},
-          "egg": {"present": true, "source": "batter and topping", "severity": "primary_ingredient"},
-          "fish": {"present": true, "source": "dashi in batter, bonito flakes topping", "severity": "base_ingredient"},
-          "soy": {"present": true, "source": "okonomiyaki sauce, mayonnaise", "severity": "base_ingredient"},
-          "shellfish": {"present": true, "source": "some versions contain shrimp, squid", "severity": "optional_ingredient"}
+          "wheat": {
+            "present": true,
+            "source": "flour batter",
+            "severity": "primary_ingredient"
+          },
+          "egg": {
+            "present": true,
+            "source": "batter and topping",
+            "severity": "primary_ingredient"
+          },
+          "fish": {
+            "present": true,
+            "source": "dashi in batter, bonito flakes topping",
+            "severity": "base_ingredient"
+          },
+          "soy": {
+            "present": true,
+            "source": "okonomiyaki sauce, mayonnaise",
+            "severity": "base_ingredient"
+          },
+          "shellfish": {
+            "present": true,
+            "source": "some versions contain shrimp, squid",
+            "severity": "optional_ingredient"
+          }
         },
         "hidden_risks": "Multi-allergen dish. Shared griddle with other orders. Nagaimo (mountain yam) is added to batter in some styles. Kewpie mayo contains egg.",
         "alternatives": "No safe version for wheat or egg allergies."
       },
       {
         "dish": "Curry Rice (Japanese Curry)",
-        "ingredients": ["curry roux (wheat flour, oil, curry powder)", "potato", "carrot", "onion", "meat", "rice"],
+        "ingredients": [
+          "curry roux (wheat flour, oil, curry powder)",
+          "potato",
+          "carrot",
+          "onion",
+          "meat",
+          "rice"
+        ],
         "allergens": {
-          "wheat": {"present": true, "source": "curry roux is wheat-flour-based", "severity": "primary_ingredient"},
-          "gluten": {"present": true, "source": "wheat flour in roux", "severity": "primary_ingredient"},
-          "allium": {"present": true, "source": "onion", "severity": "primary_ingredient"},
-          "milk": {"present": true, "source": "some roux brands contain dairy", "severity": "trace_risk"}
+          "wheat": {
+            "present": true,
+            "source": "curry roux is wheat-flour-based",
+            "severity": "primary_ingredient"
+          },
+          "gluten": {
+            "present": true,
+            "source": "wheat flour in roux",
+            "severity": "primary_ingredient"
+          },
+          "allium": {
+            "present": true,
+            "source": "onion",
+            "severity": "primary_ingredient"
+          },
+          "milk": {
+            "present": true,
+            "source": "some roux brands contain dairy",
+            "severity": "trace_risk"
+          }
         },
         "hidden_risks": "The roux block is the hidden wheat source. Store-bought roux (S&B, House) contains wheat, soy, and often dairy. Apple and honey are also common additions.",
         "alternatives": "No standard wheat-free Japanese curry in restaurants. Indian curry over rice is safer for wheat-free."
       },
       {
         "dish": "Sashimi",
-        "ingredients": ["raw fish", "daikon radish", "shiso leaf"],
+        "ingredients": [
+          "raw fish",
+          "daikon radish",
+          "shiso leaf"
+        ],
         "allergens": {
-          "fish": {"present": true, "source": "raw fish", "severity": "primary_ingredient"},
-          "shellfish": {"present": true, "source": "if platter includes shrimp, squid, or shellfish", "severity": "optional_ingredient"}
+          "fish": {
+            "present": true,
+            "source": "raw fish",
+            "severity": "primary_ingredient"
+          },
+          "shellfish": {
+            "present": true,
+            "source": "if platter includes shrimp, squid, or shellfish",
+            "severity": "optional_ingredient"
+          }
         },
         "hidden_risks": "Sashimi itself is simple, but soy sauce for dipping contains wheat. Cross-contact on cutting boards. Served on shared platters at izakayas.",
         "alternatives": "One of the simpler Japanese dishes if fish is not a concern. Skip soy sauce for wheat-free."
-      }
-    ],
-    "thai": [
-      {
-        "dish": "Pad Thai",
-        "ingredients": ["rice noodles", "shrimp or chicken", "egg", "tofu", "bean sprouts", "green onion", "crushed peanuts", "fish sauce", "tamarind paste", "sugar", "lime", "chili flakes"],
-        "allergens": {
-          "peanut": {"present": true, "source": "crushed peanuts as topping — standard", "severity": "primary_ingredient"},
-          "egg": {"present": true, "source": "scrambled into the noodles", "severity": "base_ingredient"},
-          "fish": {"present": true, "source": "fish sauce", "severity": "base_ingredient"},
-          "shellfish": {"present": true, "source": "shrimp (common default protein)", "severity": "optional_ingredient"},
-          "soy": {"present": true, "source": "soy sauce sometimes added alongside fish sauce", "severity": "optional_ingredient"}
-        },
-        "hidden_risks": "Peanuts are the TOP risk — they are standard, not optional. Even 'no peanut' orders risk cross-contact from the same wok and prep area. Fish sauce is in the sauce base. Tamarind paste may contain traces of shellfish in some brands.",
-        "alternatives": "Request 'mai sai thua lisong' (no peanuts) — but cross-contact risk remains high for anaphylaxis. Egg can be omitted."
-      },
-      {
-        "dish": "Green Curry (Gaeng Khiao Wan)",
-        "ingredients": ["coconut milk", "green curry paste (shrimp paste, green chili, garlic, lemongrass, galangal, kaffir lime)", "chicken or tofu", "Thai basil", "bamboo shoots", "Thai eggplant", "fish sauce", "palm sugar"],
-        "allergens": {
-          "shellfish": {"present": true, "source": "shrimp paste (kapi) in curry paste", "severity": "base_ingredient"},
-          "fish": {"present": true, "source": "fish sauce", "severity": "base_ingredient"},
-          "coconut": {"present": true, "source": "coconut milk is the base", "severity": "primary_ingredient"},
-          "allium": {"present": true, "source": "garlic, shallots in curry paste", "severity": "base_ingredient"}
-        },
-        "hidden_risks": "Shrimp paste is IN the curry paste — it cannot be removed after the fact. Curry paste is pre-made in batches. Coconut is classified as a tree nut by FDA but debated. Thai eggplant can cause reactions in nightshade-sensitive individuals.",
-        "alternatives": "No shrimp-paste-free Thai curry exists in standard restaurants. Coconut-free curry is not a thing."
-      },
-      {
-        "dish": "Red Curry (Gaeng Phet)",
-        "ingredients": ["coconut milk", "red curry paste (shrimp paste, dried red chili, garlic, lemongrass, galangal, kaffir lime)", "meat or tofu", "bamboo shoots", "Thai basil", "fish sauce"],
-        "allergens": {
-          "shellfish": {"present": true, "source": "shrimp paste in curry paste", "severity": "base_ingredient"},
-          "fish": {"present": true, "source": "fish sauce", "severity": "base_ingredient"},
-          "coconut": {"present": true, "source": "coconut milk", "severity": "primary_ingredient"},
-          "allium": {"present": true, "source": "garlic, shallots", "severity": "base_ingredient"}
-        },
-        "hidden_risks": "Same shrimp paste issue as green curry. Red curry paste is interchangeable risk profile with green.",
-        "alternatives": "Same limitations as green curry."
-      },
-      {
-        "dish": "Tom Yum Soup",
-        "ingredients": ["shrimp or chicken", "lemongrass", "galangal", "kaffir lime leaves", "chili", "fish sauce", "lime juice", "mushrooms", "cilantro"],
-        "allergens": {
-          "shellfish": {"present": true, "source": "shrimp (tom yum goong)", "severity": "primary_ingredient"},
-          "fish": {"present": true, "source": "fish sauce", "severity": "base_ingredient"}
-        },
-        "hidden_risks": "Tom yum goong = shrimp version. Tom yum gai = chicken version (safer for shellfish allergy but still contains fish sauce). 'Tom yum nam khon' (creamy version) adds evaporated milk or coconut milk. Generally peanut-free and egg-free.",
-        "alternatives": "Tom yum gai (chicken) avoids shellfish. Still contains fish sauce. One of the simpler Thai dishes allergen-wise."
-      },
-      {
-        "dish": "Tom Kha Gai",
-        "ingredients": ["chicken", "coconut milk", "galangal", "lemongrass", "kaffir lime leaves", "fish sauce", "lime juice", "chili", "mushrooms"],
-        "allergens": {
-          "coconut": {"present": true, "source": "coconut milk is the soup base", "severity": "primary_ingredient"},
-          "fish": {"present": true, "source": "fish sauce", "severity": "base_ingredient"}
-        },
-        "hidden_risks": "Coconut milk is the defining ingredient. Fish sauce is invisible but present. Generally shrimp-paste-free (unlike curries), making it slightly safer for shellfish.",
-        "alternatives": "No coconut-free version exists. If fish sauce is the only concern, some tourist-oriented restaurants can substitute soy sauce."
-      },
-      {
-        "dish": "Som Tam (Green Papaya Salad)",
-        "ingredients": ["green papaya", "tomato", "green beans", "garlic", "chili", "lime juice", "fish sauce", "palm sugar", "dried shrimp", "peanuts"],
-        "allergens": {
-          "peanut": {"present": true, "source": "crushed peanuts", "severity": "base_ingredient"},
-          "shellfish": {"present": true, "source": "dried shrimp", "severity": "base_ingredient"},
-          "fish": {"present": true, "source": "fish sauce", "severity": "base_ingredient"},
-          "allium": {"present": true, "source": "garlic", "severity": "base_ingredient"}
-        },
-        "hidden_risks": "Pounded in a shared mortar — cross-contact from previous batches (peanuts, shrimp) is near-certain. Some versions add raw crab (som tam poo) — severe shellfish risk. Fermented fish sauce (pla ra) in Isaan-style is a more intense fish allergen exposure.",
-        "alternatives": "Request 'mai sai thua, mai sai kung haeng' (no peanuts, no dried shrimp). Mortar cross-contact remains."
-      },
-      {
-        "dish": "Massaman Curry",
-        "ingredients": ["coconut milk", "massaman curry paste (shrimp paste, dried chili, lemongrass, galangal)", "meat", "potato", "onion", "peanuts", "tamarind", "fish sauce", "palm sugar"],
-        "allergens": {
-          "peanut": {"present": true, "source": "peanuts are a primary ingredient, not just a garnish", "severity": "primary_ingredient"},
-          "shellfish": {"present": true, "source": "shrimp paste in curry paste", "severity": "base_ingredient"},
-          "fish": {"present": true, "source": "fish sauce", "severity": "base_ingredient"},
-          "coconut": {"present": true, "source": "coconut milk base", "severity": "primary_ingredient"},
-          "allium": {"present": true, "source": "onion, shallots, garlic", "severity": "base_ingredient"}
-        },
-        "hidden_risks": "HIGHEST PEANUT RISK in Thai cuisine. Peanuts are cooked INTO the curry, not just sprinkled on top. Cannot be removed. Also contains shrimp paste in the curry paste.",
-        "alternatives": "No safe version for peanut allergy. Choose a stir-fry or grilled dish instead."
-      },
-      {
-        "dish": "Satay (Chicken/Pork Satay)",
-        "ingredients": ["meat", "turmeric", "lemongrass", "coconut milk (marinade)", "peanut sauce", "cucumber relish"],
-        "allergens": {
-          "peanut": {"present": true, "source": "peanut dipping sauce — the defining accompaniment", "severity": "primary_ingredient"},
-          "coconut": {"present": true, "source": "coconut milk in marinade", "severity": "base_ingredient"}
-        },
-        "hidden_risks": "The satay meat itself may be safe (if coconut marinade is not a concern), but it is ALWAYS served with peanut sauce. Cross-contact between sauce and skewers during serving.",
-        "alternatives": "Eat skewers only, without sauce — but confirm no peanut in marinade and no cross-contact during grilling."
-      },
-      {
-        "dish": "Khao Pad (Fried Rice)",
-        "ingredients": ["jasmine rice", "egg", "garlic", "onion", "soy sauce", "fish sauce", "vegetables", "meat or shrimp"],
-        "allergens": {
-          "egg": {"present": true, "source": "scrambled into rice", "severity": "base_ingredient"},
-          "soy": {"present": true, "source": "soy sauce", "severity": "base_ingredient"},
-          "fish": {"present": true, "source": "fish sauce", "severity": "base_ingredient"},
-          "shellfish": {"present": true, "source": "shrimp if khao pad goong", "severity": "optional_ingredient"},
-          "wheat": {"present": true, "source": "soy sauce contains wheat", "severity": "trace_risk"},
-          "allium": {"present": true, "source": "garlic, onion", "severity": "base_ingredient"}
-        },
-        "hidden_risks": "Egg is standard — request 'mai sai khai' to omit. Wok cross-contact from previous orders (peanuts, shrimp). Fish sauce is invisible.",
-        "alternatives": "Khao suay (steamed rice) is the safe base. Fried rice with no egg, no soy sauce is possible but unusual."
-      },
-      {
-        "dish": "Pad See Ew",
-        "ingredients": ["wide rice noodles", "soy sauce", "dark soy sauce", "egg", "Chinese broccoli", "garlic", "meat or tofu", "oyster sauce"],
-        "allergens": {
-          "soy": {"present": true, "source": "soy sauce, dark soy sauce", "severity": "primary_ingredient"},
-          "egg": {"present": true, "source": "scrambled into dish", "severity": "base_ingredient"},
-          "shellfish": {"present": true, "source": "oyster sauce", "severity": "base_ingredient"},
-          "wheat": {"present": true, "source": "soy sauce contains wheat", "severity": "base_ingredient"},
-          "allium": {"present": true, "source": "garlic", "severity": "base_ingredient"}
-        },
-        "hidden_risks": "Oyster sauce is the hidden shellfish source — it's in the sauce base. Dark soy sauce is heavy wheat. Wok cross-contact.",
-        "alternatives": "Very difficult to make allergen-free. Specify no oyster sauce and no egg — but the dish loses its character."
-      },
-      {
-        "dish": "Mango Sticky Rice (Khao Niao Mamuang)",
-        "ingredients": ["sticky (glutinous) rice", "coconut milk", "sugar", "salt", "fresh mango"],
-        "allergens": {
-          "coconut": {"present": true, "source": "coconut milk/cream sauce", "severity": "primary_ingredient"}
-        },
-        "hidden_risks": "Despite the name 'glutinous rice,' it is actually gluten-free (it's a rice variety). The coconut cream/milk is the only major allergen. No nuts, no egg, no fish, no soy. One of the safest Thai desserts if coconut is not an issue.",
-        "alternatives": "Fresh fruit platter if coconut is a concern."
-      },
-      {
-        "dish": "Larb (Minced Meat Salad)",
-        "ingredients": ["ground meat (pork, chicken, or beef)", "fish sauce", "lime juice", "chili flakes", "shallots", "green onion", "mint", "cilantro", "toasted rice powder"],
-        "allergens": {
-          "fish": {"present": true, "source": "fish sauce", "severity": "base_ingredient"},
-          "allium": {"present": true, "source": "shallots, green onion", "severity": "base_ingredient"}
-        },
-        "hidden_risks": "Generally peanut-free, egg-free, dairy-free, making it one of the safer Thai dishes. Fish sauce is the main allergen concern. Served with sticky rice and raw vegetables. Larb dib (raw meat version) carries food safety risk beyond allergens.",
-        "alternatives": "Good option for peanut, egg, dairy, and shellfish-free diets. Fish sauce is the only hidden concern."
-      },
-      {
-        "dish": "Pad Krapow (Thai Basil Stir-Fry)",
-        "ingredients": ["ground meat", "Thai holy basil", "garlic", "chili", "soy sauce", "oyster sauce", "fish sauce", "sugar", "fried egg on top"],
-        "allergens": {
-          "egg": {"present": true, "source": "fried egg (khai dao) on top — standard", "severity": "base_ingredient"},
-          "soy": {"present": true, "source": "soy sauce", "severity": "base_ingredient"},
-          "fish": {"present": true, "source": "fish sauce", "severity": "base_ingredient"},
-          "shellfish": {"present": true, "source": "oyster sauce", "severity": "base_ingredient"},
-          "wheat": {"present": true, "source": "soy sauce contains wheat", "severity": "trace_risk"},
-          "allium": {"present": true, "source": "garlic (heavy)", "severity": "primary_ingredient"}
-        },
-        "hidden_risks": "The fried egg on top is standard — say 'mai sai khai dao' to omit. Oyster sauce is the hidden shellfish. Extremely garlic-heavy.",
-        "alternatives": "Omit egg and oyster sauce — but fish sauce and soy sauce remain."
-      },
-      {
-        "dish": "Spring Rolls (Poh Pia Tod — Fried)",
-        "ingredients": ["wheat flour wrapper", "glass noodles", "cabbage", "carrot", "mushroom", "garlic", "soy sauce", "oil for frying"],
-        "allergens": {
-          "wheat": {"present": true, "source": "fried spring roll wrapper", "severity": "primary_ingredient"},
-          "soy": {"present": true, "source": "soy sauce in filling", "severity": "base_ingredient"},
-          "gluten": {"present": true, "source": "wheat wrapper", "severity": "primary_ingredient"},
-          "allium": {"present": true, "source": "garlic", "severity": "base_ingredient"}
-        },
-        "hidden_risks": "Fried in shared oil with shrimp and peanut items. Some contain shrimp. Fresh spring rolls (poh pia sod) use rice paper wrapper — wheat-free alternative.",
-        "alternatives": "Fresh spring rolls (rice paper) for wheat-free. Confirm no shrimp or peanut dipping sauce."
-      },
-      {
-        "dish": "Panang Curry",
-        "ingredients": ["coconut milk (thick)", "panang curry paste (shrimp paste, dried chili, lemongrass, galangal, peanuts)", "meat", "kaffir lime leaves", "Thai basil", "fish sauce"],
-        "allergens": {
-          "peanut": {"present": true, "source": "ground peanuts IN the curry paste itself", "severity": "primary_ingredient"},
-          "shellfish": {"present": true, "source": "shrimp paste in curry paste", "severity": "base_ingredient"},
-          "fish": {"present": true, "source": "fish sauce", "severity": "base_ingredient"},
-          "coconut": {"present": true, "source": "thick coconut milk/cream", "severity": "primary_ingredient"},
-          "allium": {"present": true, "source": "garlic, shallots in paste", "severity": "base_ingredient"}
-        },
-        "hidden_risks": "Peanuts are GROUND INTO the curry paste — they are inseparable. This is as dangerous as massaman for peanut allergies. The thick coconut cream makes this one of the richest coconut exposures.",
-        "alternatives": "No safe version for peanut allergy. Tom yum or larb are safer Thai options."
       }
     ]
   },
@@ -686,50 +1175,61 @@
         "sesame": "ごま (goma)",
         "fish": "魚 (sakana)"
       }
-    },
-    "thai": {
-      "allergy_alert": "ฉันแพ้ [ALLERGEN] อย่างรุนแรง ถ้ากินอาจเป็นอันตรายถึงชีวิต นี่ไม่ใช่ความชอบ แต่เป็นเรื่องฉุกเฉินทางการแพทย์ กรุณาตรวจสอบกับห้องครัว",
-      "allergy_alert_transliteration": "Chan phae [ALLERGEN] yang runraeng. Tha kin aat pen antarai theung chiwit. Nii mai chai khwam chop, tae pen reuang chukchoen thang kan phaet. Karuna truat sop kap hong khrua.",
-      "allergy_alert_english": "I have a severe allergy to [ALLERGEN]. If I eat this, my life could be in danger. This is not a preference — it is a medical emergency. Please confirm with the kitchen.",
-      "does_contain": "Nii mii [ALLERGEN] mai?",
-      "emergency": "Chan mii aakaan phae. Chuay phaa pai rong phayabaan. Emergency number: 1669",
-      "common_allergen_words": {
-        "peanut": "ถั่วลิสง (thua lisong)",
-        "shrimp": "กุ้ง (kung)",
-        "fish sauce": "น้ำปลา (nam pla)",
-        "egg": "ไข่ (khai)",
-        "coconut": "มะพร้าว (ma phrao)",
-        "soy sauce": "ซีอิ๊ว (see ew)",
-        "shellfish": "หอย (hoi)",
-        "crab": "ปู (poo)",
-        "milk": "นม (nom)",
-        "wheat": "แป้งสาลี (paeng salee)"
-      }
     }
   },
   "medical_conditions_flags": {
     "celiac": {
-      "avoid": ["wheat", "barley", "rye", "regular soy sauce"],
+      "avoid": [
+        "wheat",
+        "barley",
+        "rye",
+        "regular soy sauce"
+      ],
       "note": "In Japanese cuisine, tamari (wheat-free soy sauce) is the alternative. Most regular soy sauce contains wheat."
     },
     "ckd": {
-      "limit": ["potassium (banana, potato, tomato)", "phosphorus (dairy, nuts, beans)", "sodium"],
-      "note": "Many Indian dishes are high in potassium (dal, potato dishes) and phosphorus (dairy, nuts). Thai coconut-based curries have moderate potassium."
+      "limit": [
+        "potassium (banana, potato, tomato)",
+        "phosphorus (dairy, nuts, beans)",
+        "sodium"
+      ],
+      "note": "Many Indian dishes are high in potassium (dal, potato dishes) and phosphorus (dairy, nuts)."
     },
     "diabetes": {
-      "limit": ["rice (high glycemic)", "sugar (desserts, sweet sauces)", "refined carbs (naan, white rice)"],
-      "note": "Pad Thai, fried rice, and curry over rice are high glycemic. Thai sweet chili sauce is sugar-heavy."
+      "limit": [
+        "rice (high glycemic)",
+        "sugar (desserts, sweet sauces)",
+        "refined carbs (naan, white rice)"
+      ],
+      "note": "Fried rice and curry over rice are high glycemic."
     },
     "gout": {
-      "limit": ["organ meats", "shellfish", "some fish", "alcohol", "high-purine legumes"],
-      "note": "Rajma (kidney beans), dal, and seafood-heavy Japanese dishes are high purine. Thai shrimp dishes also high risk."
+      "limit": [
+        "organ meats",
+        "shellfish",
+        "some fish",
+        "alcohol",
+        "high-purine legumes"
+      ],
+      "note": "Rajma (kidney beans), dal, and seafood-heavy Japanese dishes are high purine."
     },
     "histamine_intolerance": {
-      "limit": ["fermented foods (miso, soy sauce, fish sauce, kimchi)", "aged cheese", "smoked fish", "vinegar"],
-      "note": "Japanese cuisine is extremely high-histamine (miso, soy sauce, dashi, pickles). Thai fish sauce is fermented. Indian fermented items (idli, dosa, pickles) are triggers."
+      "limit": [
+        "fermented foods (miso, soy sauce, fish sauce, kimchi)",
+        "aged cheese",
+        "smoked fish",
+        "vinegar"
+      ],
+      "note": "Japanese cuisine is extremely high-histamine (miso, soy sauce, dashi, pickles). Indian fermented items (idli, dosa, pickles) are triggers."
     },
     "fodmap": {
-      "limit": ["onion", "garlic", "wheat", "legumes (dal, beans)", "certain fruits"],
+      "limit": [
+        "onion",
+        "garlic",
+        "wheat",
+        "legumes (dal, beans)",
+        "certain fruits"
+      ],
       "note": "North Indian cuisine is extremely challenging for low-FODMAP — onion and garlic are in nearly everything. Jain cooking (no onion/garlic) is the closest safe option."
     }
   }
