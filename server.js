@@ -132,10 +132,14 @@ app.post('/api/cactus/transcribe/start', (req, res) => {
       env: { ...process.env, PATH: `${cPath}/venv/bin:${process.env.PATH}` },
     });
     cactusText = '';
+    const ANSI = /\x1B(?:[@-Z\\-_]|\[[0-?]*[ -\/]*[@-~])/g;
     cactusProc.stdout.on('data', d => {
-      const t = d.toString();
-      if (t && !t.includes('Loading') && !t.includes('Listening') && !t.includes('===='))
-        cactusText += ' ' + t.trim();
+      const cleaned = d.toString().replace(ANSI, '').replace(/\r/g, '').replace(/[ \t]+/g, ' ').trim();
+      if (!cleaned) return;
+      const lines = cleaned.split('\n').map(l => l.trim()).filter(l =>
+        l && !l.includes('Loading') && !l.includes('Listening') && !l.includes('====') && !/^cactus[> ]/i.test(l)
+      );
+      if (lines.length) cactusText += ' ' + lines.join(' ');
     });
     cactusProc.stderr.on('data', d => console.error('Cactus:', d.toString()));
     cactusProc.on('close', () => { cactusProc = null; });

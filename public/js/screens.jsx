@@ -297,8 +297,10 @@ function FoodScreen({ profile, kb, liveAllergens, liveSeverity, liveConditions }
 
   const ingestTranscript = useCallback((chunk) => {
     if (!chunk || kbDishes.length === 0) return;
-    setTranscript(p => (p + ' ' + chunk).trim());
-    const ents = window.extractDishEntities(chunk, kbDishes);
+    const clean = chunk.replace(/\[[0-9;?]*[A-Za-z]/g, '').replace(/[ \t]+/g, ' ').trim();
+    if (!clean) return;
+    setTranscript(p => (p + ' ' + clean).trim());
+    const ents = window.extractDishEntities(clean, kbDishes);
     if (ents.length === 0) return;
     const res = window.assessMenu(ents.map(e => e.matchedDish.dish), kbDishes, liveProfile, kitchenType);
     setLiveResults(p => { const ex = new Set(p.map(r => r.dish)); return [...p, ...res.filter(r => !ex.has(r.dish))]; });
